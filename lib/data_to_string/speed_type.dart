@@ -1,0 +1,4 @@
+enum SpeedType {
+  kph,
+  mph
+}

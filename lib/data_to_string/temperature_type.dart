@@ -1,0 +1,4 @@
+enum TemperatureType {
+  celsius,
+  fahrenheit
+}
