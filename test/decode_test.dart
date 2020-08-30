@@ -1,11 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:app_f1_telemetry/packet/car_status_data.dart';
-import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/header.dart';
-import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
+import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/participant_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -77,20 +75,8 @@ void main() {
   test('test_decoder_lap_data', () {
     var list = lapData;
 
-    var subList = list.sublist(24);
-    int i = 0;
-    int listIndex = 0;
-
-    var lapDataList = [];
-    int byteSize = LapData.lapData.reduce((a, b) => a + b);
-
-    while(i < 22){
-      var lap = subList.sublist(listIndex, listIndex + byteSize);
-      listIndex += byteSize ;
-
-      lapDataList.add(LapData(lap));
-      i++;
-    }
+    Header header = Header(list);
+    PacketLapData packet = PacketLapData(header, list);
   });
 
   test('test_decoder_car_telemetry', () {
