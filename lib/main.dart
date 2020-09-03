@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_f1_telemetry/View/draggable.dart';
 import 'package:app_f1_telemetry/data_to_string/data_to_string_converter.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'data_to_string/temperature_type.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Background());
 }
 
 class MyApp extends StatelessWidget {
