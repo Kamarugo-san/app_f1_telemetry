@@ -20,18 +20,32 @@ class _DraggableViewState extends State<DraggableView> {
 
   _DraggableViewState() {
     wList = [
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () {
-              print("A");
-              setState(() {
-                wList.add(Cube());
-              });
-            },
+      Container(
+        color: Colors.black87,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                print("A");
+                setState(() {
+                  int rg = Random().nextInt(120) + 50;
+                  int b = Random().nextInt(55) + 200;
+
+                  wList.add(
+                    DraggableWidget(
+                      Container(
+                        color: Color.fromARGB(255, rg - 20, rg, b),
+                        width: 100,
+                        height: 80,
+                      ),
+                    ),
+                  );
+                });
+              },
+            ),
           ),
         ),
       ),
@@ -56,18 +70,18 @@ class _DraggableViewState extends State<DraggableView> {
       ),
     );
   }
-
-  void addWidget() {
-    wList.add(Cube());
-  }
 }
 
-class Cube extends StatefulWidget {
+class DraggableWidget extends StatefulWidget {
+  Widget widget;
+
+  DraggableWidget(this.widget);
+
   @override
-  _CubeState createState() => _CubeState();
+  _DraggableWidgetState createState() => _DraggableWidgetState();
 }
 
-class _CubeState extends State<Cube> {
+class _DraggableWidgetState extends State<DraggableWidget> {
   int s = -1;
   int t = -1;
 
@@ -84,26 +98,13 @@ class _CubeState extends State<Cube> {
       left: s.toDouble(),
       top: t.toDouble(),
       child: Draggable(
-        child: Container(
-          width: 50,
-          height: 50,
-          color: Color.fromARGB(
-              255, r.nextInt(255), r.nextInt(255), r.nextInt(255)),
-        ),
-        feedback: Container(
-          width: 50,
-          height: 50,
-          color: Color.fromARGB(
-              255, r.nextInt(255), r.nextInt(255), r.nextInt(255)),
-        ),
-        childWhenDragging: Container(
-          width: 0,
-          height: 0,
-        ),
+        child: widget.widget,
+        feedback: widget.widget,
+        childWhenDragging: Container(width: 0, height: 0),
         onDragEnd: (details) {
           setState(() {
-            s = (details.offset.dx ~/ 30) * 30;
-            t = (details.offset.dy ~/ 30) * 30;
+            s = (details.offset.dx / 10).round() * 10;
+            t = (details.offset.dy / 10).round() * 10;
           });
         },
       ),
