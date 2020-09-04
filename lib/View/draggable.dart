@@ -1,12 +1,16 @@
 import 'dart:math';
 
+import 'package:app_f1_telemetry/View/constants.dart';
+import 'package:app_f1_telemetry/View/data_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: DraggableView());
+    return MaterialApp(
+      home: DraggableView(),
+    );
   }
 }
 
@@ -29,20 +33,45 @@ class _DraggableViewState extends State<DraggableView> {
             child: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
-                print("A");
                 setState(() {
                   int rg = Random().nextInt(120) + 50;
                   int b = Random().nextInt(55) + 200;
 
                   wList.add(
                     DraggableWidget(
-                      Container(
-                        color: Color.fromARGB(255, rg - 20, rg, b),
-                        width: 100,
-                        height: 80,
+                      widget: DataBox(
+                        header: Text("142 KPH"),
+                        t0_0: Text(
+                          "L2",
+                          style: TextStyle(color: Constants.primaryTextColor),
+                        ),
+                        t0_1: Text(
+                          "P17",
+                          style: TextStyle(color: Constants.primaryTextColor),
+                        ),
+                        t1_0: Text(
+                          "23.5",
+                          style: TextStyle(color: Constants.primaryTextColor),
+                        ),
+                        t1_1: Text(
+                          "+1.4",
+                          style: TextStyle(color: Constants.primaryTextColor),
+                        ),
                       ),
+                      width: Constants.dataBoxWidth,
+                      height: Constants.dataBoxHeight,
                     ),
                   );
+
+                  // wList.add(
+                  //   DraggableWidget(
+                  //     Container(
+                  //       color: Color.fromARGB(255, rg - 20, rg, b),
+                  //       width: 100,
+                  //       height: 80,
+                  //     ),
+                  //   ),
+                  // );
                 });
               },
             ),
@@ -73,9 +102,11 @@ class _DraggableViewState extends State<DraggableView> {
 }
 
 class DraggableWidget extends StatefulWidget {
-  Widget widget;
+  final Widget widget;
+  final double width;
+  final double height;
 
-  DraggableWidget(this.widget);
+  DraggableWidget({@required this.widget, this.width = 100, this.height = 100});
 
   @override
   _DraggableWidgetState createState() => _DraggableWidgetState();
@@ -88,8 +119,8 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   @override
   Widget build(BuildContext context) {
     if (s == -1 && t == -1) {
-      s = MediaQuery.of(context).size.width ~/ 2 - 25;
-      t = MediaQuery.of(context).size.height ~/ 2 - 25;
+      s = (MediaQuery.of(context).size.width ~/ 2 - widget.width / 2).toInt();
+      t = (MediaQuery.of(context).size.height ~/ 2 - widget.height / 2).toInt();
     }
 
     Random r = new Random();
@@ -99,7 +130,10 @@ class _DraggableWidgetState extends State<DraggableWidget> {
       top: t.toDouble(),
       child: Draggable(
         child: widget.widget,
-        feedback: widget.widget,
+        feedback: Material(
+          type: MaterialType.transparency,
+          child: widget.widget,
+        ),
         childWhenDragging: Container(width: 0, height: 0),
         onDragEnd: (details) {
           setState(() {
