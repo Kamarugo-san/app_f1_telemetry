@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ersHarvestedThisLapMGUK =
           'ERS H MGU-K ${playerCar.ersHarvestedThisLapMGUK}';
 
-      fuelInTank = converter.dp(playerCar.fuelInTank, 1).toString();
+      fuelInTank = DataToStringConverter.dp(playerCar.fuelInTank, 1).toString();
 
       fuelRemainingLaps = converter.getFuelRemainingLaps(playerCar);
       if (playerCar.fuelRemainingLaps < 0) {

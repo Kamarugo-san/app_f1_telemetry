@@ -93,7 +93,7 @@ class DataToStringConverter {
     return ((car.ersDeployedThisLap * 100) / maxErsDeploy).floor();
   }
 
-  double dp(double val, int places) {
+  static double dp(double val, int places) {
     double mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
   }

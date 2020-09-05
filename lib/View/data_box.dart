@@ -30,6 +30,7 @@ class _DataBoxState extends State<DataBox> {
       width: widget.width,
       height: widget.height,
       decoration: BoxDecoration(
+        color: Colors.black87,
         border: Border.all(
           color: Colors.white,
         ),
