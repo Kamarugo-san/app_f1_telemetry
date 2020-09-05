@@ -1,17 +1,14 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:app_f1_telemetry/View/constants.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
-import 'package:app_f1_telemetry/packet/car_status_data.dart';
-import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/header.dart';
-import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_ids.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
-import 'package:app_f1_telemetry/widgets/cm_dashboard_right.dart';
+import 'package:app_f1_telemetry/widgets/widget_creator.dart';
+import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,12 +23,20 @@ class Background extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return MaterialApp(
+      title: 'F1 Telemetry',
       home: DraggableView(),
     );
   }
 }
 
 class DraggableView extends StatefulWidget {
+  void showWidgetDialog(BuildContext context, WidgetBuilder builder) {
+    showDialog(
+      context: context,
+      builder: builder,
+    );
+  }
+
   _DraggableViewState createState() => _DraggableViewState();
 }
 
@@ -86,77 +91,45 @@ class _DraggableViewState extends State<DraggableView> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.black87,
-        child: Stack(
-          children: getWidget(),
-        ),
-      ),
+  WidgetBuilder getDialog(BuildContext context) {
+    Widget cmDashboardLeft = SimpleDialogOption(
+      child: Text('CodeMaster\'s dashboard (left)'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.cmDashboardLeft);
+        });
+        Navigator.of(context).pop();
+      },
     );
+
+    Widget gear = SimpleDialogOption(
+      child: Text('Gear'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.gear);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
+    SimpleDialog dialog = SimpleDialog(
+      title: const Text('Chose a widget'),
+      children: [
+        cmDashboardLeft,
+        gear,
+      ],
+    );
+
+    return (context) {
+      return dialog;
+    };
   }
 
-  List<Widget> getWidget() {
-    List<Widget> a = [];
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> l = getWidget();
 
-    LapData lapData;
-    if (lastLapData != null) {
-      lapData = lastLapData.lapData[lastLapData.header.playerCarIndex];
-    }
-
-    CarTelemetryData telemetryData;
-    if (lastCarTelemetry != null) {
-      telemetryData = lastCarTelemetry
-          .carTelemetryData[lastCarTelemetry.header.playerCarIndex];
-    }
-
-    CarStatusData carStatusData;
-    if (lastCarStatus != null) {
-      carStatusData =
-      lastCarStatus.carStatusData[lastCarStatus.header.playerCarIndex];
-    }
-
-    List<TelemetryWidget> b = controller.getList();
-    b.forEach((element) {
-      if (element.widgetType == 0) {
-        if (isEditing) {
-          a.add(
-            DraggableWidget(
-              widget: PositionedWidget(
-                id: element.id,
-                start: element.start,
-                top: element.top,
-                widget: CmDashboardRight(
-                  speedType: SpeedType.kph,
-                  lapData: null,
-                  telemetryData: null,
-                  carStatusData: null,
-                ),
-              ),
-              width: Constants.dataBoxWidth,
-              height: Constants.dataBoxHeight,
-            ),
-          );
-        } else {
-          a.add(
-            Positioned(
-              top: element.top.toDouble(),
-              left: element.start.toDouble(),
-              child: CmDashboardRight(
-                speedType: SpeedType.kph,
-                lapData: lapData,
-                telemetryData: telemetryData,
-                carStatusData: carStatusData,
-              ),
-            ),
-          );
-        }
-      }
-    });
-
-    a.add(
+    l.add(
       Padding(
         padding: const EdgeInsets.all(16.0),
         child: Align(
@@ -169,11 +142,7 @@ class _DraggableViewState extends State<DraggableView> {
                   isEditing = !isEditing;
                 });
               } else {
-                setState(
-                  () {
-                    controller.create(0);
-                  },
-                );
+                widget.showWidgetDialog(context, getDialog(context));
               }
             },
           ),
@@ -182,7 +151,7 @@ class _DraggableViewState extends State<DraggableView> {
     );
 
     if (isEditing) {
-      a.add(
+      l.add(
         Padding(
           padding: EdgeInsets.all(16),
           child: Align(
@@ -200,17 +169,30 @@ class _DraggableViewState extends State<DraggableView> {
       );
     }
 
+    return Scaffold(
+      body: Container(
+        color: Constants.backgroundColor,
+        child: Stack(
+          children: l,
+        ),
+      ),
+    );
+  }
+
+  List<Widget> getWidget() {
+    List<Widget> a = [];
+
+    WidgetCreator creator = WidgetCreator(
+        lastCarTelemetry, lastCarStatus, lastLapData, SpeedType.kph);
+
+    List<TelemetryWidget> b = controller.getList();
+    b.forEach((element) {
+      a.add(creator.create(element, isEditing));
+    });
+
     return a;
   }
 }
-
-/*class TelemetryWidget {
-  final PositionedWidget widget;
-  final double width;
-  final double height;
-
-  TelemetryWidget({this.widget, this.width, this.height});
-}*/
 
 class DraggableWidget extends StatefulWidget {
   final PositionedWidget widget;
@@ -242,8 +224,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
       _DraggableViewState.controller.updatePosition(widget.widget.id, s, t);
     }
 
-    Random r = new Random();
-
     return Positioned(
       left: s.toDouble(),
       top: t.toDouble(),
@@ -259,9 +239,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
             s = (details.offset.dx / 10).round() * 10;
             t = (details.offset.dy / 10).round() * 10;
 
-            widget.widget.start = s;
-            widget.widget.top = t;
-
             _DraggableViewState.controller
                 .updatePosition(widget.widget.id, s, t);
           });
@@ -273,15 +250,16 @@ class _DraggableWidgetState extends State<DraggableWidget> {
 
 class PositionedWidget {
   final Widget widget;
+  final int id;
   int start;
   int top;
-  int id;
 
-  PositionedWidget(
-      {@required this.widget,
-      @required this.id,
-      this.start = -1,
-      this.top = -1});
+  PositionedWidget({
+    @required this.widget,
+    @required this.id,
+    this.start = -1,
+    this.top = -1,
+  });
 }
 
 class TelemetryWidget {

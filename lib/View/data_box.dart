@@ -1,14 +1,14 @@
-import 'package:app_f1_telemetry/View/constants.dart';
 import 'package:flutter/material.dart';
 
 class DataBox extends StatefulWidget {
+  static const double width = 170;
+  static const double height = 120;
+
   final Text header;
   final Text t0_0;
   final Text t0_1;
   final Text t1_0;
   final Text t1_1;
-  final double width;
-  final double height;
 
   DataBox({
     this.header,
@@ -16,8 +16,6 @@ class DataBox extends StatefulWidget {
     this.t0_1,
     this.t1_0,
     this.t1_1,
-    this.width = Constants.dataBoxWidth,
-    this.height = Constants.dataBoxHeight,
   });
 
   _DataBoxState createState() => _DataBoxState();
@@ -27,8 +25,8 @@ class _DataBoxState extends State<DataBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width,
-      height: widget.height,
+      width: DataBox.width,
+      height: DataBox.height,
       decoration: BoxDecoration(
         color: Colors.black87,
         border: Border.all(

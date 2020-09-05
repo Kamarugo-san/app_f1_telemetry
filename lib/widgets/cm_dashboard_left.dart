@@ -7,13 +7,16 @@ import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:flutter/material.dart';
 
-class CmDashboardRight extends StatelessWidget {
+class CmDashboardLeft extends StatelessWidget {
   final SpeedType speedType;
   final LapData lapData;
   final CarTelemetryData telemetryData;
   final CarStatusData carStatusData;
 
-  CmDashboardRight({
+  static const double width = 120;
+  static const double height = 120;
+
+  CmDashboardLeft({
     this.speedType,
     this.lapData,
     this.telemetryData,
@@ -50,10 +53,13 @@ class CmDashboardRight extends StatelessWidget {
           DataToStringConverter.dp(carStatusData.fuelRemainingLaps, 2);
 
       if (fuelRemainingLaps >= 0) {
-        remainingFuel = '+(${fuelRemainingLaps.toString()})';
+        remainingFuel = '(+${fuelRemainingLaps.toString()})';
       } else {
-        remainingFuel = '-(${fuelRemainingLaps.toString()})';
+        remainingFuel = '(${fuelRemainingLaps.toString()})';
       }
+
+      totalFuel =
+          DataToStringConverter.dp(carStatusData.fuelInTank, 2).toString();
     }
 
     return DataBox(
