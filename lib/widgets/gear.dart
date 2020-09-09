@@ -48,7 +48,7 @@ class Gear extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Constants.backgroundColor,
+      color: Colors.transparent,
       width: width,
       height: height,
       child: Column(
@@ -56,16 +56,11 @@ class Gear extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Text(
-                  _getGear(),
-                  style: TextStyle(
-                    color: Constants.primaryTextColor,
-                  ),
+            child: FittedBox(
+              child: Text(
+                _getGear(),
+                style: TextStyle(
+                  color: Constants.primaryTextColor,
                 ),
               ),
             ),

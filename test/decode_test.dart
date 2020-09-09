@@ -4,7 +4,7 @@ import 'package:app_f1_telemetry/packet/header.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
-import 'package:app_f1_telemetry/packet/participant_data.dart';
+import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -88,22 +88,8 @@ void main() {
 
   test('test_decoder_participant_data', (){
     var list = participants;
+    Header header = Header(list);
 
-    print("numActiveCars: ${list[24]}");
-
-    var subList = list.sublist(25);
-    int i = 0;
-    int listIndex = 0;
-
-    var participantDataList = [];
-    int byteSize = ParticipantData.participantData.reduce((a, b) => a + b);
-
-    while(i < 22){
-      var p = subList.sublist(listIndex, listIndex + byteSize);
-      listIndex += byteSize ;
-
-      participantDataList.add(ParticipantData(p));
-      i++;
-    }
+    PacketParticipantData packet = PacketParticipantData(header, list);
   });
 }

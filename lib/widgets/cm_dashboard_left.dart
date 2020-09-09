@@ -1,11 +1,12 @@
 import 'package:app_f1_telemetry/View/constants.dart';
-import 'package:app_f1_telemetry/View/data_box.dart';
 import 'package:app_f1_telemetry/data_to_string/data_to_string_converter.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:flutter/material.dart';
+
+import 'file:///C:/Users/dddou/OneDrive/Documentos/AndroidStudio/app_f1_telemetry/lib/widgets/widget_data_box.dart';
 
 class CmDashboardLeft extends StatelessWidget {
   final SpeedType speedType;

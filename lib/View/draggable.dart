@@ -112,11 +112,33 @@ class _DraggableViewState extends State<DraggableView> {
       },
     );
 
+    Widget lights = SimpleDialogOption(
+      child: Text('Lights'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.lights);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget speed = SimpleDialogOption(
+      child: Text('Speed'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.speed);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
     SimpleDialog dialog = SimpleDialog(
       title: const Text('Chose a widget'),
       children: [
         cmDashboardLeft,
         gear,
+        lights,
+        speed,
       ],
     );
 

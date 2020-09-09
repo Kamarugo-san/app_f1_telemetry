@@ -28,7 +28,6 @@ class _DataBoxState extends State<DataBox> {
       width: DataBox.width,
       height: DataBox.height,
       decoration: BoxDecoration(
-        color: Colors.black87,
         border: Border.all(
           color: Colors.white,
         ),

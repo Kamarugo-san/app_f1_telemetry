@@ -6,6 +6,8 @@ import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
+import 'package:app_f1_telemetry/widgets/lights.dart';
+import 'package:app_f1_telemetry/widgets/speed.dart';
 import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/material.dart';
 
@@ -100,6 +102,58 @@ class WidgetCreator {
               child: Gear(
                 _telemetryData,
                 _carStatusData,
+              ),
+            );
+          }
+        }
+        break;
+
+      case WidgetTypes.lights:
+        {
+          if (isEditing) {
+            return DraggableWidget(
+              widget: PositionedWidget(
+                id: telemetryWidget.id,
+                start: telemetryWidget.start,
+                top: telemetryWidget.top,
+                widget: Lights(87),
+              ),
+              width: Lights.width,
+              height: Lights.height,
+            );
+          } else {
+            return Positioned(
+              top: telemetryWidget.top.toDouble(),
+              left: telemetryWidget.start.toDouble(),
+              child: Lights(87),
+            );
+          }
+        }
+        break;
+
+      case WidgetTypes.speed:
+        {
+          if (isEditing) {
+            return DraggableWidget(
+              widget: PositionedWidget(
+                id: telemetryWidget.id,
+                start: telemetryWidget.start,
+                top: telemetryWidget.top,
+                widget: Speed(
+                  140,
+                  SpeedType.kph,
+                ),
+              ),
+              width: Lights.width,
+              height: Lights.height,
+            );
+          } else {
+            return Positioned(
+              top: telemetryWidget.top.toDouble(),
+              left: telemetryWidget.start.toDouble(),
+              child: Speed(
+                140,
+                SpeedType.kph,
               ),
             );
           }
