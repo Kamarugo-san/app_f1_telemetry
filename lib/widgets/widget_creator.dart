@@ -116,16 +116,16 @@ class WidgetCreator {
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
-                widget: Lights(87),
+                widget: RevLights(null),
               ),
-              width: Lights.width,
-              height: Lights.height,
+              width: RevLights.width,
+              height: RevLights.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
-              child: Lights(87),
+              child: RevLights(_telemetryData),
             );
           }
         }
@@ -140,20 +140,20 @@ class WidgetCreator {
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
                 widget: Speed(
-                  140,
                   SpeedType.kph,
+                  null,
                 ),
               ),
-              width: Lights.width,
-              height: Lights.height,
+              width: RevLights.width,
+              height: RevLights.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
               child: Speed(
-                140,
                 SpeedType.kph,
+                _telemetryData,
               ),
             );
           }

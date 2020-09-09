@@ -113,7 +113,7 @@ class _DraggableViewState extends State<DraggableView> {
     );
 
     Widget lights = SimpleDialogOption(
-      child: Text('Lights'),
+      child: Text('Rev lights'),
       onPressed: () {
         setState(() {
           controller.create(WidgetTypes.lights);

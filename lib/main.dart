@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       rpm = converter.getRpm(playerCar);
       gear = converter.getGear(playerCar);
-      speed = converter.getSpeed(playerCar);
+//      speed = converter.getSpeed(playerCar);
 
       tempsList = converter.getTyreInnerTemperature(playerCar);
       temps =

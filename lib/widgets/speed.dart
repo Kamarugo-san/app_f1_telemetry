@@ -1,25 +1,20 @@
 import 'package:app_f1_telemetry/View/constants.dart';
+import 'package:app_f1_telemetry/data_to_string/data_to_string_converter.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
+import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:flutter/material.dart';
 
 class Speed extends StatelessWidget {
   static const double width = 120;
   static const double height = 50;
 
-  final SpeedType speedType;
-  final int _speed;
+  final SpeedType _speedType;
+  final CarTelemetryData _telemetryData;
 
-  Speed(this._speed, this.speedType);
+  Speed(this._speedType, this._telemetryData);
 
   Widget build(BuildContext context) {
-    String strSpeed;
-
-    if (speedType == SpeedType.mph) {
-      int temp = (_speed / 1.609).round();
-      strSpeed = '$_speed MPH';
-    } else {
-      strSpeed = '$_speed KPH';
-    }
+    String strSpeed = DataToStringConverter.getSpeed(_telemetryData, _speedType);
 
     return Container(
       color: Colors.transparent,

@@ -25,8 +25,7 @@ class CmDashboardLeft extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String speedTypeString = speedType == SpeedType.kph ? 'KPH' : 'MPH';
-    String speed = '0 $speedTypeString';
+    String speed = DataToStringConverter.getSpeed(telemetryData, speedType);
     String currentLap = 'L1';
     String currentPos = 'P0';
     String totalFuel = '0.0';

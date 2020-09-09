@@ -1,6 +1,7 @@
+import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:flutter/material.dart';
 
-class Lights extends StatelessWidget {
+class RevLights extends StatelessWidget {
   static const double width = 500;
   static const double height = 50;
   static const double padding = 2;
@@ -13,15 +14,21 @@ class Lights extends StatelessWidget {
   static const List<int> lPurple = [150, 0, 240];
   static const List<int> lYellow = [240, 200, 0];
 
-  final int _revLightsPercent;
+  final CarTelemetryData _telemetryData;
 
-  Lights(this._revLightsPercent);
+  RevLights(this._telemetryData);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> l = [];
 
-    double lVal = (_revLightsPercent / 100);
+    int revLightsPercent = 0;
+
+    if (_telemetryData != null) {
+      revLightsPercent = _telemetryData.revLightsPercent;
+    }
+
+    double lVal = (revLightsPercent / 100);
     int cont = 0;
 
     for (int i = 0; i < lColorsType.length; i++) {
@@ -49,7 +56,7 @@ class Lights extends StatelessWidget {
   }
 
   static getLightLength() {
-    return Lights.lColorsType.reduce((a, b) => a + b);
+    return RevLights.lColorsType.reduce((a, b) => a + b);
   }
 }
 
@@ -62,10 +69,10 @@ class RevLight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(Lights.padding),
+      padding: const EdgeInsets.all(RevLights.padding),
       child: Container(
-        width: Lights.width / Lights.getLightLength() - Lights.padding * 2,
-        height: Lights.width / Lights.getLightLength() - Lights.padding * 2,
+        width: RevLights.width / RevLights.getLightLength() - RevLights.padding * 2,
+        height: RevLights.width / RevLights.getLightLength() - RevLights.padding * 2,
         decoration: new BoxDecoration(
           color: Color.fromARGB(
             255,
