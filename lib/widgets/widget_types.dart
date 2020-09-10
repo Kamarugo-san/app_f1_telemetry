@@ -4,4 +4,5 @@ class WidgetTypes {
   static const int gear = 2;
   static const int lights = 3;
   static const int speed = 4;
+  static const int status_table = 5;
 }

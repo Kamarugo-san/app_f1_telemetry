@@ -12,6 +12,9 @@ class PacketParticipantData {
     this.header = header;
 
     int i = 0;
+    
+    numActiveCars = list[24];
+
     int listIndex = 25;
 
     int byteSize = ParticipantData.participantData.reduce((a, b) => a + b);

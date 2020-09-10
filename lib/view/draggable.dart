@@ -7,6 +7,7 @@ import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_ids.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
+import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
 import 'package:app_f1_telemetry/widgets/widget_creator.dart';
 import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,6 +51,7 @@ class _DraggableViewState extends State<DraggableView> {
   PacketCarTelemetryData lastCarTelemetry;
   PacketCarStatusData lastCarStatus;
   PacketLapData lastLapData;
+  PacketParticipantData lastParticipantData;
 
   _DraggableViewState() {
     RawDatagramSocket.bind(InternetAddress.anyIPv4, 20777)
@@ -85,6 +87,13 @@ class _DraggableViewState extends State<DraggableView> {
           setState(() {
             this.lastHeader = header;
             this.lastCarStatus = packet;
+          });
+        } else if (header.packetId == PacketIds.participants) {
+          var packet = PacketParticipantData(header, list);
+
+          setState(() {
+            this.lastHeader = header;
+            this.lastParticipantData = packet;
           });
         }
       });
@@ -132,6 +141,16 @@ class _DraggableViewState extends State<DraggableView> {
       },
     );
 
+    Widget statusTable = SimpleDialogOption(
+      child: Text('Status table'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.status_table);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
     SimpleDialog dialog = SimpleDialog(
       title: const Text('Chose a widget'),
       children: [
@@ -139,6 +158,7 @@ class _DraggableViewState extends State<DraggableView> {
         gear,
         lights,
         speed,
+        statusTable,
       ],
     );
 
@@ -179,6 +199,7 @@ class _DraggableViewState extends State<DraggableView> {
           child: Align(
             alignment: Alignment.topRight,
             child: FloatingActionButton(
+              backgroundColor: Colors.red,
               child: Icon(Icons.close),
               onPressed: () {
                 setState(() {
@@ -205,7 +226,7 @@ class _DraggableViewState extends State<DraggableView> {
     List<Widget> a = [];
 
     WidgetCreator creator = WidgetCreator(
-        lastCarTelemetry, lastCarStatus, lastLapData, SpeedType.kph);
+        lastCarTelemetry, lastCarStatus, lastLapData, lastParticipantData, SpeedType.kph);
 
     List<TelemetryWidget> b = controller.getList();
     b.forEach((element) {
