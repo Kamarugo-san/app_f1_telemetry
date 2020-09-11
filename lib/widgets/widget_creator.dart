@@ -1,4 +1,4 @@
-import 'package:app_f1_telemetry/View/draggable.dart';
+import 'package:app_f1_telemetry/view/draggable.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';

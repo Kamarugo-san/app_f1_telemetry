@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:app_f1_telemetry/View/constants.dart';
+import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/header.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';

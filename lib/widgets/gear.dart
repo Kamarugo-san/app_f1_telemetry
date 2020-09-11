@@ -1,4 +1,4 @@
-import 'package:app_f1_telemetry/View/constants.dart';
+import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:flutter/cupertino.dart';
