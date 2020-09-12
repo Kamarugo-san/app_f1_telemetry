@@ -38,14 +38,15 @@ class StatusTable extends StatelessWidget {
       List<CarItem> orderList = List(participantList.numActiveCars);
       int playerCarIndex = participantList.header.playerCarIndex;
 
-      for (int i = 0; i < participantList.numActiveCars; i++) {
-        orderList[lapData[i].carPosition - 1] = CarItem(
-          participantList.participantData[i].name,
-          lapData[i].carPosition,
-          carStatusList[i].visualTyreCompound,
-          participantList.participantData[i].teamId,
-        );
-        // participantList.participantData[i];
+      for (int i = 0; i < 22; i++) {
+        if (lapData[i].resultStatus != 7 && lapData[i].resultStatus != 0) {
+          orderList[lapData[i].carPosition - 1] = CarItem(
+            participantList.participantData[i].name,
+            lapData[i].carPosition,
+            carStatusList[i].visualTyreCompound,
+            participantList.participantData[i].teamId,
+          );
+        }
       }
 
       int playerPos = lapData[playerCarIndex].carPosition - 1;
@@ -58,7 +59,7 @@ class StatusTable extends StatelessWidget {
         listToShow[2] = orderList[2];
         listToShow[3] = orderList[3];
         listToShow[4] = orderList[4];
-      } else if (playerPos > participantList.numActiveCars - 2) {
+      } else if (playerPos > participantList.numActiveCars - 3) {
         listToShow[0] = orderList[participantList.numActiveCars - 5];
         listToShow[1] = orderList[participantList.numActiveCars - 4];
         listToShow[2] = orderList[participantList.numActiveCars - 3];

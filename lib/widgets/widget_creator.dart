@@ -1,4 +1,3 @@
-import 'package:app_f1_telemetry/view/draggable.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
@@ -7,8 +6,12 @@ import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
+import 'package:app_f1_telemetry/view/draggable.dart';
+import 'package:app_f1_telemetry/widgets/brake.dart';
+import 'package:app_f1_telemetry/widgets/ers_storage.dart';
 import 'package:app_f1_telemetry/widgets/rev_lights.dart';
 import 'package:app_f1_telemetry/widgets/speed.dart';
+import 'package:app_f1_telemetry/widgets/throttle.dart';
 import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/material.dart';
 
@@ -174,7 +177,7 @@ class WidgetCreator {
         }
         break;
 
-      case WidgetTypes.status_table:
+      case WidgetTypes.statusTable:
         {
           if (isEditing) {
             return DraggableWidget(
@@ -195,6 +198,87 @@ class WidgetCreator {
                 _listLapData,
                 _listParticipantData,
                 _listCarStatus,
+              ),
+            );
+          }
+        }
+        break;
+
+      case WidgetTypes.ersStorage:
+        {
+          if (isEditing) {
+            return DraggableWidget(
+              widget: PositionedWidget(
+                id: telemetryWidget.id,
+                start: telemetryWidget.start,
+                top: telemetryWidget.top,
+                widget: ErsStorage(
+                  null,
+                ),
+              ),
+              width: ErsStorage.width,
+              height: ErsStorage.height,
+            );
+          } else {
+            return Positioned(
+              top: telemetryWidget.top.toDouble(),
+              left: telemetryWidget.start.toDouble(),
+              child: ErsStorage(
+                _carStatusData,
+              ),
+            );
+          }
+        }
+        break;
+
+      case WidgetTypes.throttle:
+        {
+          if (isEditing) {
+            return DraggableWidget(
+              widget: PositionedWidget(
+                id: telemetryWidget.id,
+                start: telemetryWidget.start,
+                top: telemetryWidget.top,
+                widget: Throttle(
+                  null,
+                ),
+              ),
+              width: Throttle.width,
+              height: Throttle.height,
+            );
+          } else {
+            return Positioned(
+              top: telemetryWidget.top.toDouble(),
+              left: telemetryWidget.start.toDouble(),
+              child: Throttle(
+                _telemetryData,
+              ),
+            );
+          }
+        }
+        break;
+
+      case WidgetTypes.brake:
+        {
+          if (isEditing) {
+            return DraggableWidget(
+              widget: PositionedWidget(
+                id: telemetryWidget.id,
+                start: telemetryWidget.start,
+                top: telemetryWidget.top,
+                widget: Brake(
+                  null,
+                ),
+              ),
+              width: Brake.width,
+              height: Brake.height,
+            );
+          } else {
+            return Positioned(
+              top: telemetryWidget.top.toDouble(),
+              left: telemetryWidget.start.toDouble(),
+              child: Brake(
+                _telemetryData,
               ),
             );
           }

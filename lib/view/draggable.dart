@@ -145,7 +145,37 @@ class _DraggableViewState extends State<DraggableView> {
       child: Text('Status table'),
       onPressed: () {
         setState(() {
-          controller.create(WidgetTypes.status_table);
+          controller.create(WidgetTypes.statusTable);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget ersStorage = SimpleDialogOption(
+      child: Text('ERS storage'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.ersStorage);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget throttle = SimpleDialogOption(
+      child: Text('Throttle'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.throttle);
+        });
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget brake = SimpleDialogOption(
+      child: Text('Brake'),
+      onPressed: () {
+        setState(() {
+          controller.create(WidgetTypes.brake);
         });
         Navigator.of(context).pop();
       },
@@ -159,6 +189,9 @@ class _DraggableViewState extends State<DraggableView> {
         lights,
         speed,
         statusTable,
+        ersStorage,
+        throttle,
+        brake,
       ],
     );
 
@@ -225,8 +258,8 @@ class _DraggableViewState extends State<DraggableView> {
   List<Widget> getWidget() {
     List<Widget> a = [];
 
-    WidgetCreator creator = WidgetCreator(
-        lastCarTelemetry, lastCarStatus, lastLapData, lastParticipantData, SpeedType.kph);
+    WidgetCreator creator = WidgetCreator(lastCarTelemetry, lastCarStatus,
+        lastLapData, lastParticipantData, SpeedType.kph);
 
     List<TelemetryWidget> b = controller.getList();
     b.forEach((element) {
