@@ -199,8 +199,8 @@ class _DraggableViewState extends State<DraggableView> {
           child: Align(
             alignment: Alignment.topRight,
             child: FloatingActionButton(
-              backgroundColor: Colors.red,
-              child: Icon(Icons.close),
+              backgroundColor: Colors.green,
+              child: Icon(Icons.done),
               onPressed: () {
                 setState(() {
                   isEditing = false;
