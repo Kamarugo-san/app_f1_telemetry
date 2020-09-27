@@ -2,7 +2,9 @@
 The app uses the F1 2020 game's native solution to sending telemetry data via
 UDP packets to display real time information to the user.
 The app listens for UDP packets on the game's native port `20777` and decodes
-them into objects the widgets can use.
+them into objects the widgets can use. For the decoding it is used the official
+[reference](https://forums.codemasters.com/topic/54423-f1%C2%AE-2020-udp-specification/)
+made by Codemasters.
 
 ## Setting up the game
 *  Go to Game Options -> Settings -> Telemetry Settings.
