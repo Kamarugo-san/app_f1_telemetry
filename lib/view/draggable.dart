@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/header.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
@@ -8,6 +7,7 @@ import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_ids.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
+import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/widgets/widget_creator.dart';
 import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/cupertino.dart';
@@ -209,17 +209,27 @@ class _DraggableViewState extends State<DraggableView> {
         padding: const EdgeInsets.all(16.0),
         child: Align(
           alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            child: Icon(isEditing ? Icons.add : Icons.edit),
-            onPressed: () {
-              if (!isEditing) {
-                setState(() {
-                  isEditing = !isEditing;
-                });
-              } else {
-                widget.showWidgetDialog(context, getDialog(context));
-              }
-            },
+          child: Wrap(
+            children: [
+              Container(
+                child: Column(
+                  children: [
+                    FloatingActionButton(
+                      child: Icon(isEditing ? Icons.add : Icons.edit),
+                      onPressed: () {
+                        if (!isEditing) {
+                          setState(() {
+                            isEditing = !isEditing;
+                          });
+                        } else {
+                          widget.showWidgetDialog(context, getDialog(context));
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -238,6 +248,51 @@ class _DraggableViewState extends State<DraggableView> {
                 setState(() {
                   isEditing = false;
                 });
+              },
+            ),
+          ),
+        ),
+      );
+      l.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 20, 80),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              child: Icon(Icons.unfold_more),
+              backgroundColor: Colors.purple,
+              mini: true,
+              onPressed: () {
+                if (!isEditing) {
+                  setState(() {
+                    isEditing = !isEditing;
+                  });
+                } else {
+                  widget.showWidgetDialog(context, getDialog(context));
+                }
+              },
+            ),
+          ),
+        ),
+      );
+
+      l.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 20, 130),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              child: Icon(Icons.unfold_less),
+              backgroundColor: Colors.purple,
+              mini: true,
+              onPressed: () {
+                if (!isEditing) {
+                  setState(() {
+                    isEditing = !isEditing;
+                  });
+                } else {
+                  widget.showWidgetDialog(context, getDialog(context));
+                }
               },
             ),
           ),
@@ -286,8 +341,9 @@ class DraggableWidget extends StatefulWidget {
 }
 
 class _DraggableWidgetState extends State<DraggableWidget> {
-  int s = -2;
-  int t = -2;
+  int s = -1;
+  int t = -1;
+  bool selected = false;
 
   _DraggableWidgetState(this.s, this.t);
 
@@ -303,21 +359,34 @@ class _DraggableWidgetState extends State<DraggableWidget> {
     return Positioned(
       left: s.toDouble(),
       top: t.toDouble(),
-      child: Draggable(
-        child: widget.widget.widget,
-        feedback: Material(
-          type: MaterialType.transparency,
-          child: widget.widget.widget,
-        ),
-        childWhenDragging: Container(width: 0, height: 0),
-        onDragEnd: (details) {
-          setState(() {
-            s = (details.offset.dx / 10).round() * 10;
-            t = (details.offset.dy / 10).round() * 10;
+      child: ToggleButtons(
+        isSelected: [selected],
+        children: [
+          Draggable(
+            child: widget.widget.widget,
+            feedback: Material(
+              type: MaterialType.transparency,
+              child: widget.widget.widget,
+            ),
+            childWhenDragging: Container(width: 0, height: 0),
+            onDragEnd: (details) {
+              setState(() {
+                s = (details.offset.dx / 10).round() * 10;
+                t = (details.offset.dy / 10).round() * 10;
 
-            _DraggableViewState.controller
-                .updatePosition(widget.widget.id, s, t);
-          });
+                _DraggableViewState.controller
+                    .updatePosition(widget.widget.id, s, t);
+              });
+            },
+          ),
+        ],
+        onPressed: (index) => {
+          print("selected index: $index"),
+          setState(
+            () {
+              selected = !selected;
+            },
+          ),
         },
       ),
     );
