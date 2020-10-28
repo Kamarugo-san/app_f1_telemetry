@@ -1,7 +1,7 @@
-import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/data_to_string/data_to_string_converter.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
+import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:flutter/material.dart';
 
 class Speed extends StatelessWidget {
@@ -10,16 +10,19 @@ class Speed extends StatelessWidget {
 
   final SpeedType _speedType;
   final CarTelemetryData _telemetryData;
+  final double dWidth;
+  final double dHeight;
 
-  Speed(this._speedType, this._telemetryData);
+  Speed(this._speedType, this._telemetryData, {this.dWidth = width, this.dHeight = height});
 
   Widget build(BuildContext context) {
-    String strSpeed = DataToStringConverter.getSpeed(_telemetryData, _speedType);
+    String strSpeed =
+        DataToStringConverter.getSpeed(_telemetryData, _speedType);
 
     return Container(
       color: Colors.transparent,
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

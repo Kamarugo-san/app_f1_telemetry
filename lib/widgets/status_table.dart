@@ -2,7 +2,6 @@ import 'package:app_f1_telemetry/constants/team_colors.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
-import 'package:app_f1_telemetry/packet/participant_data.dart';
 import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -12,18 +11,22 @@ class StatusTable extends StatelessWidget {
   final List<LapData> lapData;
   final List<CarStatusData> carStatusList;
   final PacketParticipantData participantList;
+  final double dWidth;
+  final double dHeight;
 
   StatusTable(
     this.lapData,
     this.participantList,
-    this.carStatusList,
-  );
+    this.carStatusList, {
+    this.dWidth = width,
+    this.dHeight = height,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       child: ListView(
         children: createList(),
         physics: NeverScrollableScrollPhysics(),

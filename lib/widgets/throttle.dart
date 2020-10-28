@@ -7,8 +7,10 @@ class Throttle extends StatelessWidget {
   static const double height = 30;
 
   final CarTelemetryData _carTelemetry;
+  final double dWidth;
+  final double dHeight;
 
-  Throttle(this._carTelemetry);
+  Throttle(this._carTelemetry, {this.dWidth = width, this.dHeight = height});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,8 @@ class Throttle extends StatelessWidget {
           color: _throttleColor,
         ),
       ),
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       child: LinearProgressIndicator(
         value: throttle,
         backgroundColor: Colors.transparent,

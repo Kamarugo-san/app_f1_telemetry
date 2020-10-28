@@ -81,11 +81,15 @@ class WidgetCreator {
                   carStatusData: null,
                 ),
               ),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: CmDashboardLeft(
                 speedType: SpeedType.kph,
                 lapData: _lapData,
@@ -109,13 +113,15 @@ class WidgetCreator {
                   null,
                 ),
               ),
-              width: Gear.width,
-              height: Gear.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: Gear(
                 _telemetryData,
                 _carStatusData,
@@ -135,13 +141,15 @@ class WidgetCreator {
                 top: telemetryWidget.top,
                 widget: RevLights(null),
               ),
-              width: RevLights.width,
-              height: RevLights.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: RevLights(_telemetryData),
             );
           }
@@ -161,13 +169,15 @@ class WidgetCreator {
                   null,
                 ),
               ),
-              width: Speed.width,
-              height: Speed.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: Speed(
                 SpeedType.kph,
                 _telemetryData,
@@ -187,13 +197,15 @@ class WidgetCreator {
                 top: telemetryWidget.top,
                 widget: StatusTable(null, null, null),
               ),
-              width: StatusTable.width,
-              height: StatusTable.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: StatusTable(
                 _listLapData,
                 _listParticipantData,
@@ -216,13 +228,15 @@ class WidgetCreator {
                   null,
                 ),
               ),
-              width: ErsStorage.width,
-              height: ErsStorage.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: ErsStorage(
                 _carStatusData,
               ),
@@ -243,13 +257,15 @@ class WidgetCreator {
                   null,
                 ),
               ),
-              width: Throttle.width,
-              height: Throttle.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: Throttle(
                 _telemetryData,
               ),
@@ -270,13 +286,15 @@ class WidgetCreator {
                   null,
                 ),
               ),
-              width: Brake.width,
-              height: Brake.height,
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
             );
           } else {
             return Positioned(
               top: telemetryWidget.top.toDouble(),
               left: telemetryWidget.start.toDouble(),
+              width: telemetryWidget.width,
+              height: telemetryWidget.height,
               child: Brake(
                 _telemetryData,
               ),

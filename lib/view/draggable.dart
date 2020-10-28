@@ -263,13 +263,11 @@ class _DraggableViewState extends State<DraggableView> {
               backgroundColor: Colors.purple,
               mini: true,
               onPressed: () {
-                if (!isEditing) {
-                  setState(() {
-                    isEditing = !isEditing;
-                  });
-                } else {
-                  widget.showWidgetDialog(context, getDialog(context));
-                }
+                _DraggableViewState.controller.updateSize(
+                  _DraggableViewState.controller.selectedId,
+                  _DraggableViewState.controller.getSelectedWidth() + 10,
+                  _DraggableViewState.controller.getSelectedHeight() + 10,
+                );
               },
             ),
           ),
@@ -286,13 +284,11 @@ class _DraggableViewState extends State<DraggableView> {
               backgroundColor: Colors.purple,
               mini: true,
               onPressed: () {
-                if (!isEditing) {
-                  setState(() {
-                    isEditing = !isEditing;
-                  });
-                } else {
-                  widget.showWidgetDialog(context, getDialog(context));
-                }
+                _DraggableViewState.controller.updateSize(
+                  _DraggableViewState.controller.selectedId,
+                  _DraggableViewState.controller.getSelectedWidth() - 10,
+                  _DraggableViewState.controller.getSelectedHeight() - 10,
+                );
               },
             ),
           ),
@@ -327,6 +323,7 @@ class _DraggableViewState extends State<DraggableView> {
 
 class DraggableWidget extends StatefulWidget {
   final PositionedWidget widget;
+
   final double width;
   final double height;
 
@@ -336,8 +333,10 @@ class DraggableWidget extends StatefulWidget {
       this.height = Constants.defaultSize});
 
   @override
-  _DraggableWidgetState createState() =>
-      _DraggableWidgetState(widget.start, widget.top);
+  _DraggableWidgetState createState() => _DraggableWidgetState(
+        widget.start,
+        widget.top,
+      );
 }
 
 class _DraggableWidgetState extends State<DraggableWidget> {
@@ -385,6 +384,8 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           setState(
             () {
               selected = !selected;
+              _DraggableViewState.controller.selectedId = widget.widget.id;
+              print(_DraggableViewState.controller.selectedId);
             },
           ),
         },
@@ -412,20 +413,31 @@ class TelemetryWidget {
   int id;
   int top;
   int start;
+  double width;
+  double height;
 
-  TelemetryWidget(this.widgetType, this.id, this.top, this.start);
+  TelemetryWidget(
+      this.widgetType, this.id, this.top, this.start, this.width, this.height);
 }
 
 class TelemetryWidgetController {
   List<TelemetryWidget> _list = [];
   int lastId = 0;
+  int selectedId = -1;
 
   List<TelemetryWidget> getList() {
     return _list;
   }
 
   TelemetryWidget create(int type) {
-    var d = TelemetryWidget(type, _getNextId(), -1, -1);
+    var d = TelemetryWidget(
+      type,
+      _getNextId(),
+      -1,
+      -1,
+      WidgetTypes.getWidthByType(type),
+      WidgetTypes.getHeightByType(type),
+    );
     _list.add(d);
     return d;
   }
@@ -443,5 +455,35 @@ class TelemetryWidgetController {
         break;
       }
     }
+  }
+
+  void updateSize(int id, double width, double height) {
+    for (var i = 0; i < _list.length; i++) {
+      if (_list[i].id == id) {
+        _list[i].width = width;
+        _list[i].height = height;
+        break;
+      }
+    }
+  }
+
+  double getSelectedWidth() {
+    if (selectedId == -1) return -1;
+    for (var i = 0; i < _list.length; i++) {
+      if (_list[i].id == selectedId) {
+        return _list[i].width;
+      }
+    }
+    return -1;
+  }
+
+  double getSelectedHeight() {
+    if (selectedId == -1) return -1;
+    for (var i = 0; i < _list.length; i++) {
+      if (_list[i].id == selectedId) {
+        return _list[i].height;
+      }
+    }
+    return -1;
   }
 }

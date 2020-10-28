@@ -1,9 +1,9 @@
-import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/data_to_string/data_to_string_converter.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/lap_data.dart';
+import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/widgets/data_box.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class CmDashboardLeft extends StatelessWidget {
   final CarTelemetryData telemetryData;
   final CarStatusData carStatusData;
 
-  static const double width = 120;
+  static const double width = 170;
   static const double height = 120;
 
   CmDashboardLeft({
@@ -60,6 +60,7 @@ class CmDashboardLeft extends StatelessWidget {
       totalFuel =
           DataToStringConverter.dp(carStatusData.fuelInTank, 2).toString();
     }
+
 
     return DataBox(
       header: Text(speed),

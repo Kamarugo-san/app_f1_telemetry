@@ -1,6 +1,6 @@
-import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/car_telemetry_data.dart';
+import 'package:app_f1_telemetry/view/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +13,15 @@ class Gear extends StatelessWidget {
 
   final CarTelemetryData _telemetryData;
   final CarStatusData _statusData;
+  final double dWidth;
+  final double dHeight;
 
-  Gear(this._telemetryData, this._statusData);
+  Gear(
+    this._telemetryData,
+    this._statusData, {
+    this.dWidth = width,
+    this.dHeight = height,
+  });
 
   String _getGear() {
     if (_statusData != null) {

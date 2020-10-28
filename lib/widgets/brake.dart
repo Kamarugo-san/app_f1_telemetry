@@ -8,8 +8,10 @@ class Brake extends StatelessWidget {
   static const double height = 30;
 
   final CarTelemetryData _carTelemetry;
+  final double dWidth;
+  final double dHeight;
 
-  Brake(this._carTelemetry);
+  Brake(this._carTelemetry, {this.dWidth = width, this.dHeight = height});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,13 @@ class Brake extends StatelessWidget {
           color: _brakeColor,
         ),
       ),
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       child: LinearProgressIndicator(
         value: brake,
         backgroundColor: _brakeColor,
-        valueColor: new AlwaysStoppedAnimation<Color>(Constants.backgroundColor),
+        valueColor:
+            new AlwaysStoppedAnimation<Color>(Constants.backgroundColor),
       ),
     );
   }

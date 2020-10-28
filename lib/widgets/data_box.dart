@@ -9,6 +9,8 @@ class DataBox extends StatefulWidget {
   final Text t0_1;
   final Text t1_0;
   final Text t1_1;
+  final double dWidth;
+  final double dHeight;
 
   DataBox({
     this.header,
@@ -16,6 +18,8 @@ class DataBox extends StatefulWidget {
     this.t0_1,
     this.t1_0,
     this.t1_1,
+    this.dWidth = width,
+    this.dHeight = height,
   });
 
   _DataBoxState createState() => _DataBoxState();
@@ -25,8 +29,8 @@ class _DataBoxState extends State<DataBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: DataBox.width,
-      height: DataBox.height,
+      width: widget.dWidth,
+      height: widget.dHeight,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white,

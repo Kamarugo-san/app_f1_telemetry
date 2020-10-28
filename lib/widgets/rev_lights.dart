@@ -15,8 +15,10 @@ class RevLights extends StatelessWidget {
   static const List<int> lYellow = [240, 200, 0];
 
   final CarTelemetryData _telemetryData;
+  final double dWidth;
+  final double dHeight;
 
-  RevLights(this._telemetryData);
+  RevLights(this._telemetryData, {this.dWidth = width, this.dHeight = height});
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +47,8 @@ class RevLights extends StatelessWidget {
     }
 
     return Container(
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       color: Colors.transparent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

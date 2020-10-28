@@ -10,8 +10,10 @@ class ErsStorage extends StatelessWidget {
   static final _ersColor = Colors.yellow[700];
 
   final CarStatusData carStatus;
+  final double dWidth;
+  final double dHeight;
 
-  ErsStorage(this.carStatus);
+  ErsStorage(this.carStatus, {this.dWidth = width, this.dHeight = height});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class ErsStorage extends StatelessWidget {
 
     return Container(
       color: Colors.transparent,
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
