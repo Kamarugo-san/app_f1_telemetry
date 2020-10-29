@@ -371,29 +371,25 @@ class _DraggableWidgetState extends State<DraggableWidget> {
     return Positioned(
       left: s.toDouble(),
       top: t.toDouble(),
-      child: ToggleButtons(
-        isSelected: [false],
-        children: [
-          Draggable(
+      child: GestureDetector(
+        child: Draggable(
+          child: widget.widget.widget,
+          feedback: Material(
+            type: MaterialType.transparency,
             child: widget.widget.widget,
-            feedback: Material(
-              type: MaterialType.transparency,
-              child: widget.widget.widget,
-            ),
-            childWhenDragging: Container(width: 0, height: 0),
-            onDragEnd: (details) {
-              setState(() {
-                s = (details.offset.dx / 10).round() * 10;
-                t = (details.offset.dy / 10).round() * 10;
-
-                _DraggableViewState.controller
-                    .updatePosition(widget.widget.id, s, t);
-              });
-            },
           ),
-        ],
-        onPressed: (index) => {
-          print("selected index: $index"),
+          childWhenDragging: Container(width: 0, height: 0),
+          onDragEnd: (details) {
+            setState(() {
+              s = (details.offset.dx / 10).round() * 10;
+              t = (details.offset.dy / 10).round() * 10;
+
+              _DraggableViewState.controller
+                  .updatePosition(widget.widget.id, s, t);
+            });
+          },
+        ),
+        onTap: () => {
           setState(
             () {
               _DraggableViewState.controller.selectedId = widget.widget.id;
@@ -433,8 +429,13 @@ class TelemetryWidget {
 }
 
 class TelemetryWidgetController {
-  List<TelemetryWidget> _list = [];
-  int lastId = 0;
+  List<TelemetryWidget> _list = [
+    TelemetryWidget(WidgetTypes.lights, 1, 10, 170, 500.0, 50.0),
+    TelemetryWidget(WidgetTypes.gear, 2, 60, 360, 120.0, 120.0),
+    TelemetryWidget(WidgetTypes.speed, 3, 60, 240, 120.0, 50.0),
+    TelemetryWidget(WidgetTypes.statusTable, 4, 60, 490, 170.0, 150.0),
+  ];
+  int lastId = 4;
   int selectedId = -1;
 
   List<TelemetryWidget> getList() {

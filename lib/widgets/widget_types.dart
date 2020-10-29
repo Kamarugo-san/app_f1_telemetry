@@ -21,31 +21,31 @@ class WidgetTypes {
 
   static getWidthByType(int type) {
     switch (type) {
-      case 0:
+      case cmDashboardLeft:
         return CmDashboardLeft.width;
         break;
-      case 1:
+      case cmDashboardRight:
         return Constants.defaultSize;
         break;
-      case 2:
+      case gear:
         return Gear.width;
         break;
-      case 3:
+      case lights:
         return RevLights.width;
         break;
-      case 4:
+      case speed:
         return Speed.width;
         break;
-      case 5:
+      case statusTable:
         return StatusTable.width;
         break;
-      case 6:
+      case ersStorage:
         return ErsStorage.width;
         break;
-      case 7:
+      case throttle:
         return Throttle.width;
         break;
-      case 8:
+      case brake:
         return Brake.width;
         break;
     }
@@ -53,31 +53,31 @@ class WidgetTypes {
 
   static getHeightByType(int type) {
     switch (type) {
-      case 0:
+      case cmDashboardLeft:
         return CmDashboardLeft.height;
         break;
-      case 1:
+      case cmDashboardRight:
         return Constants.defaultSize;
         break;
-      case 2:
+      case gear:
         return Gear.height;
         break;
-      case 3:
+      case lights:
         return RevLights.height;
         break;
-      case 4:
+      case speed:
         return Speed.height;
         break;
-      case 5:
+      case statusTable:
         return StatusTable.height;
         break;
-      case 6:
+      case ersStorage:
         return ErsStorage.height;
         break;
-      case 7:
+      case throttle:
         return Throttle.height;
         break;
-      case 8:
+      case brake:
         return Brake.height;
         break;
     }
