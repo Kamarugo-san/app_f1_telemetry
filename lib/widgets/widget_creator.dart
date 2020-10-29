@@ -79,6 +79,8 @@ class WidgetCreator {
                   lapData: null,
                   telemetryData: null,
                   carStatusData: null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
                 ),
               ),
               width: telemetryWidget.width,
@@ -95,6 +97,8 @@ class WidgetCreator {
                 lapData: _lapData,
                 telemetryData: _telemetryData,
                 carStatusData: _carStatusData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }
@@ -111,6 +115,8 @@ class WidgetCreator {
                 widget: Gear(
                   null,
                   null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
                 ),
               ),
               width: telemetryWidget.width,
@@ -125,6 +131,8 @@ class WidgetCreator {
               child: Gear(
                 _telemetryData,
                 _carStatusData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }
@@ -139,7 +147,11 @@ class WidgetCreator {
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
-                widget: RevLights(null),
+                widget: RevLights(
+                  null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
+                ),
               ),
               width: telemetryWidget.width,
               height: telemetryWidget.height,
@@ -150,7 +162,11 @@ class WidgetCreator {
               left: telemetryWidget.start.toDouble(),
               width: telemetryWidget.width,
               height: telemetryWidget.height,
-              child: RevLights(_telemetryData),
+              child: RevLights(
+                _telemetryData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
+              ),
             );
           }
         }
@@ -167,6 +183,8 @@ class WidgetCreator {
                 widget: Speed(
                   SpeedType.kph,
                   null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
                 ),
               ),
               width: telemetryWidget.width,
@@ -181,6 +199,8 @@ class WidgetCreator {
               child: Speed(
                 SpeedType.kph,
                 _telemetryData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }
@@ -195,7 +215,13 @@ class WidgetCreator {
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
-                widget: StatusTable(null, null, null),
+                widget: StatusTable(
+                  null,
+                  null,
+                  null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
+                ),
               ),
               width: telemetryWidget.width,
               height: telemetryWidget.height,
@@ -210,6 +236,8 @@ class WidgetCreator {
                 _listLapData,
                 _listParticipantData,
                 _listCarStatus,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }
@@ -226,6 +254,8 @@ class WidgetCreator {
                 top: telemetryWidget.top,
                 widget: ErsStorage(
                   null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
                 ),
               ),
               width: telemetryWidget.width,
@@ -239,6 +269,8 @@ class WidgetCreator {
               height: telemetryWidget.height,
               child: ErsStorage(
                 _carStatusData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }
@@ -255,6 +287,8 @@ class WidgetCreator {
                 top: telemetryWidget.top,
                 widget: Throttle(
                   null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
                 ),
               ),
               width: telemetryWidget.width,
@@ -268,6 +302,8 @@ class WidgetCreator {
               height: telemetryWidget.height,
               child: Throttle(
                 _telemetryData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }
@@ -284,6 +320,8 @@ class WidgetCreator {
                 top: telemetryWidget.top,
                 widget: Brake(
                   null,
+                  dWidth: telemetryWidget.width,
+                  dHeight: telemetryWidget.height,
                 ),
               ),
               width: telemetryWidget.width,
@@ -297,6 +335,8 @@ class WidgetCreator {
               height: telemetryWidget.height,
               child: Brake(
                 _telemetryData,
+                dWidth: telemetryWidget.width,
+                dHeight: telemetryWidget.height,
               ),
             );
           }

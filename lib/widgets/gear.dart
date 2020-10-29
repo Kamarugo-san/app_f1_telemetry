@@ -56,8 +56,8 @@ class Gear extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      width: width,
-      height: height,
+      width: dWidth,
+      height: dHeight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

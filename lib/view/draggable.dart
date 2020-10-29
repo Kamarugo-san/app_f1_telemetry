@@ -263,11 +263,18 @@ class _DraggableViewState extends State<DraggableView> {
               backgroundColor: Colors.purple,
               mini: true,
               onPressed: () {
-                _DraggableViewState.controller.updateSize(
-                  _DraggableViewState.controller.selectedId,
-                  _DraggableViewState.controller.getSelectedWidth() + 10,
-                  _DraggableViewState.controller.getSelectedHeight() + 10,
-                );
+                var w = _DraggableViewState.controller.getSelectedWidth();
+                var h = _DraggableViewState.controller.getSelectedHeight();
+                if (h < 500 && w < 500) {
+                  _DraggableViewState.controller.updateSize(
+                    _DraggableViewState.controller.selectedId,
+                    w + 10,
+                    h + 10,
+                  );
+                }
+                setState(() {
+                  isEditing = true;
+                });
               },
             ),
           ),
@@ -284,11 +291,18 @@ class _DraggableViewState extends State<DraggableView> {
               backgroundColor: Colors.purple,
               mini: true,
               onPressed: () {
-                _DraggableViewState.controller.updateSize(
-                  _DraggableViewState.controller.selectedId,
-                  _DraggableViewState.controller.getSelectedWidth() - 10,
-                  _DraggableViewState.controller.getSelectedHeight() - 10,
-                );
+                var w = _DraggableViewState.controller.getSelectedWidth();
+                var h = _DraggableViewState.controller.getSelectedHeight();
+                if (h > 20 && w > 20) {
+                  _DraggableViewState.controller.updateSize(
+                    _DraggableViewState.controller.selectedId,
+                    w - 10,
+                    h - 10,
+                  );
+                }
+                setState(() {
+                  isEditing = true;
+                });
               },
             ),
           ),
@@ -342,7 +356,6 @@ class DraggableWidget extends StatefulWidget {
 class _DraggableWidgetState extends State<DraggableWidget> {
   int s = -1;
   int t = -1;
-  bool selected = false;
 
   _DraggableWidgetState(this.s, this.t);
 
@@ -359,7 +372,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
       left: s.toDouble(),
       top: t.toDouble(),
       child: ToggleButtons(
-        isSelected: [selected],
+        isSelected: [false],
         children: [
           Draggable(
             child: widget.widget.widget,
@@ -383,7 +396,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           print("selected index: $index"),
           setState(
             () {
-              selected = !selected;
               _DraggableViewState.controller.selectedId = widget.widget.id;
               print(_DraggableViewState.controller.selectedId);
             },
@@ -439,6 +451,7 @@ class TelemetryWidgetController {
       WidgetTypes.getHeightByType(type),
     );
     _list.add(d);
+    selectedId = lastId;
     return d;
   }
 

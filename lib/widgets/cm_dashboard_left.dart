@@ -12,6 +12,8 @@ class CmDashboardLeft extends StatelessWidget {
   final LapData lapData;
   final CarTelemetryData telemetryData;
   final CarStatusData carStatusData;
+  final double dWidth;
+  final double dHeight;
 
   static const double width = 170;
   static const double height = 120;
@@ -21,6 +23,8 @@ class CmDashboardLeft extends StatelessWidget {
     this.lapData,
     this.telemetryData,
     this.carStatusData,
+    this.dWidth,
+    this.dHeight,
   });
 
   @override
@@ -61,7 +65,6 @@ class CmDashboardLeft extends StatelessWidget {
           DataToStringConverter.dp(carStatusData.fuelInTank, 2).toString();
     }
 
-
     return DataBox(
       header: Text(speed),
       t0_0: Text(
@@ -80,6 +83,8 @@ class CmDashboardLeft extends StatelessWidget {
         remainingFuel,
         style: TextStyle(color: Constants.primaryTextColor),
       ),
+      dWidth: dWidth,
+      dHeight: dHeight,
     );
   }
 }

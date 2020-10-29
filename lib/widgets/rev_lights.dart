@@ -41,7 +41,7 @@ class RevLights extends StatelessWidget {
             ? lGreen
             : (i == 1) ? lRed : (i == 2) ? lPurple : (i == 3) ? lBlue : lYellow;
 
-        l.add(RevLight(color, power));
+        l.add(RevLight(color, power, dWidth, dHeight));
         cont++;
       }
     }
@@ -65,16 +65,18 @@ class RevLights extends StatelessWidget {
 class RevLight extends StatelessWidget {
   final List<int> lColor;
   final double power;
+  final double dWidth;
+  final double dHeight;
 
-  RevLight(this.lColor, this.power);
+  RevLight(this.lColor, this.power, this.dWidth, this.dHeight);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(RevLights.padding),
       child: Container(
-        width: RevLights.width / RevLights.getLightLength() - RevLights.padding * 2,
-        height: RevLights.width / RevLights.getLightLength() - RevLights.padding * 2,
+        width: dWidth / RevLights.getLightLength() - RevLights.padding * 2,
+        height: dWidth / RevLights.getLightLength() - RevLights.padding * 2,
         decoration: new BoxDecoration(
           color: Color.fromARGB(
             255,
