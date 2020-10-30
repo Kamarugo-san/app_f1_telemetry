@@ -8,6 +8,7 @@ import 'package:app_f1_telemetry/packet/packet_ids.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
 import 'package:app_f1_telemetry/view/constants.dart';
+import 'package:app_f1_telemetry/widgets/rev_lights.dart';
 import 'package:app_f1_telemetry/widgets/widget_creator.dart';
 import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +46,7 @@ class _DraggableViewState extends State<DraggableView> {
   bool isEditing = false;
 
   List<TelemetryWidget> wList = [];
-  static TelemetryWidgetController controller = TelemetryWidgetController();
+  static TelemetryWidgetController controller;
 
   Header lastHeader;
   PacketCarTelemetryData lastCarTelemetry;
@@ -202,6 +203,10 @@ class _DraggableViewState extends State<DraggableView> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller == null) {
+      controller = TelemetryWidgetController(context);
+    }
+
     List<Widget> l = getWidget();
 
     l.add(
@@ -300,6 +305,27 @@ class _DraggableViewState extends State<DraggableView> {
                     h - 10,
                   );
                 }
+                setState(() {
+                  isEditing = true;
+                });
+              },
+            ),
+          ),
+        ),
+      );
+
+      l.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 20, 180),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              child: Icon(Icons.delete),
+              backgroundColor: Colors.red,
+              mini: true,
+              onPressed: () {
+                _DraggableViewState.controller
+                    .remove(_DraggableViewState.controller.selectedId);
                 setState(() {
                   isEditing = true;
                 });
@@ -429,14 +455,29 @@ class TelemetryWidget {
 }
 
 class TelemetryWidgetController {
-  List<TelemetryWidget> _list = [
-    TelemetryWidget(WidgetTypes.lights, 1, 10, 170, 500.0, 50.0),
-    TelemetryWidget(WidgetTypes.gear, 2, 60, 360, 120.0, 120.0),
-    TelemetryWidget(WidgetTypes.speed, 3, 60, 240, 120.0, 50.0),
-    TelemetryWidget(WidgetTypes.statusTable, 4, 60, 490, 170.0, 150.0),
-  ];
-  int lastId = 4;
+  List<TelemetryWidget> _list = [];
+  int lastId = 0;
   int selectedId = -1;
+
+  TelemetryWidgetController(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    _list = [
+      TelemetryWidget(
+        WidgetTypes.lights,
+        _getNextId(),
+        ((screenHeight * .01).toInt() / 10).round() * 10,
+        (screenWidth ~/ 2 - RevLights.width / 2).toInt(),
+        RevLights.width,
+        RevLights.height,
+      ),
+      TelemetryWidget(WidgetTypes.gear, _getNextId(), 60, 360, 120.0, 120.0),
+      TelemetryWidget(WidgetTypes.speed, _getNextId(), 60, 240, 120.0, 50.0),
+      TelemetryWidget(
+          WidgetTypes.statusTable, _getNextId(), 60, 490, 170.0, 150.0),
+    ];
+  }
 
   List<TelemetryWidget> getList() {
     return _list;
@@ -454,6 +495,20 @@ class TelemetryWidgetController {
     _list.add(d);
     selectedId = lastId;
     return d;
+  }
+
+  void remove(int id) {
+    int index = -1;
+    for (var i = 0; i < _list.length; i++) {
+      if (_list[i].id == id) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index != -1) {
+      _list.removeAt(index);
+    }
   }
 
   int _getNextId() {
