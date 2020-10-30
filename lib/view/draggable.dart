@@ -8,7 +8,10 @@ import 'package:app_f1_telemetry/packet/packet_ids.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
 import 'package:app_f1_telemetry/view/constants.dart';
+import 'package:app_f1_telemetry/widgets/gear.dart';
 import 'package:app_f1_telemetry/widgets/rev_lights.dart';
+import 'package:app_f1_telemetry/widgets/speed.dart';
+import 'package:app_f1_telemetry/widgets/status_table.dart';
 import 'package:app_f1_telemetry/widgets/widget_creator.dart';
 import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/cupertino.dart';
@@ -419,7 +422,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           setState(
             () {
               _DraggableViewState.controller.selectedId = widget.widget.id;
-              print(_DraggableViewState.controller.selectedId);
             },
           ),
         },
@@ -463,19 +465,43 @@ class TelemetryWidgetController {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
+    final int lightsTop = ((screenHeight * .01).toInt() / 10).round() * 10;
+    final int lightsBottom = ((lightsTop + RevLights.height / 10).round() * 10);
+    final double gearGrowth = 1.5;
+
     _list = [
       TelemetryWidget(
         WidgetTypes.lights,
         _getNextId(),
-        ((screenHeight * .01).toInt() / 10).round() * 10,
+        lightsTop,
         (screenWidth ~/ 2 - RevLights.width / 2).toInt(),
         RevLights.width,
         RevLights.height,
       ),
-      TelemetryWidget(WidgetTypes.gear, _getNextId(), 60, 360, 120.0, 120.0),
-      TelemetryWidget(WidgetTypes.speed, _getNextId(), 60, 240, 120.0, 50.0),
       TelemetryWidget(
-          WidgetTypes.statusTable, _getNextId(), 60, 490, 170.0, 150.0),
+        WidgetTypes.gear,
+        _getNextId(),
+        lightsBottom,
+        (screenWidth ~/ 2 - (Gear.width * gearGrowth) / 2).toInt(),
+        Gear.width * gearGrowth,
+        Gear.height * gearGrowth,
+      ),
+      TelemetryWidget(
+        WidgetTypes.speed,
+        _getNextId(),
+        lightsBottom,
+        (screenWidth ~/ 2 - ((Speed.width) / 2) - Gear.width).toInt(),
+        Speed.width,
+        Speed.height,
+      ),
+      TelemetryWidget(
+        WidgetTypes.statusTable,
+        _getNextId(),
+        lightsBottom,
+        (screenWidth - StatusTable.width - ((screenWidth * .025).toInt() / 10).round() * 10).toInt(),
+        StatusTable.width,
+        StatusTable.height,
+      ),
     ];
   }
 
