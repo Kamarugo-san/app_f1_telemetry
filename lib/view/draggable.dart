@@ -327,9 +327,9 @@ class _DraggableViewState extends State<DraggableView> {
               backgroundColor: Colors.red,
               mini: true,
               onPressed: () {
-                _DraggableViewState.controller
-                    .remove(_DraggableViewState.controller.selectedId);
                 setState(() {
+                  _DraggableViewState.controller
+                      .remove(_DraggableViewState.controller.selectedId);
                   isEditing = true;
                 });
               },
@@ -415,6 +415,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
 
               _DraggableViewState.controller
                   .updatePosition(widget.widget.id, s, t);
+              _DraggableViewState.controller.selectedId = widget.widget.id;
             });
           },
         ),
@@ -498,7 +499,10 @@ class TelemetryWidgetController {
         WidgetTypes.statusTable,
         _getNextId(),
         lightsBottom,
-        (screenWidth - StatusTable.width - ((screenWidth * .025).toInt() / 10).round() * 10).toInt(),
+        (screenWidth -
+                StatusTable.width -
+                ((screenWidth * .025).toInt() / 10).round() * 10)
+            .toInt(),
         StatusTable.width,
         StatusTable.height,
       ),
