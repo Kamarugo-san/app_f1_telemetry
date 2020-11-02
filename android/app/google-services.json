@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "963363480917",
+    "firebase_url": "https://app-f1-telemetry.firebaseio.com",
+    "project_id": "app-f1-telemetry",
+    "storage_bucket": "app-f1-telemetry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963363480917:android:33d12af9882dc9195dbbdc",
+        "android_client_info": {
+          "package_name": "br.com.douka.app_f1_telemetry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963363480917-8shmb4ek3p4pi78nlgk2d98v08qudb1k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.douka.app_f1_telemetry",
+            "certificate_hash": "28e4f1c2354682bd42748818576e553c06237395"
+          }
+        },
+        {
+          "client_id": "963363480917-8t2uqm17ij2b6jnffb8a1r6mmulprg99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGd6ijvCklriqjGWaf1-nxCzkVqnhzM5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963363480917-8t2uqm17ij2b6jnffb8a1r6mmulprg99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

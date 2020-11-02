@@ -29,8 +29,12 @@ class DataToStringConverter {
     return car.gear == 255 ? 'R' : car.gear == 0 ? 'N' : car.gear.toString();
   }
 
-  String getSpeed(CarTelemetryData car) {
-    int speed = car.speed;
+  static String getSpeed(CarTelemetryData car, SpeedType speedType) {
+    int speed = 0;
+
+    if (car != null) {
+      speed = car.speed;
+    }
 
     if (speedType == SpeedType.mph) {
       speed = (speed / 1.609).round();
@@ -93,7 +97,7 @@ class DataToStringConverter {
     return ((car.ersDeployedThisLap * 100) / maxErsDeploy).floor();
   }
 
-  double dp(double val, int places) {
+  static double dp(double val, int places) {
     double mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
   }

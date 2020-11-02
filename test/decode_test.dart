@@ -4,6 +4,7 @@ import 'package:app_f1_telemetry/packet/header.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
+import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
 import 'package:app_f1_telemetry/packet/participant_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -87,23 +88,76 @@ void main() {
   });
 
   test('test_decoder_participant_data', (){
+
+    var ld = lapData;
+
+    Header headerLd = Header(ld);
+    PacketLapData packetLd = PacketLapData(headerLd, ld);
+
     var list = participants;
+    Header header = Header(list);
 
-    print("numActiveCars: ${list[24]}");
+    PacketParticipantData packet = PacketParticipantData(header, list);
+    int playerCarIndex = packet.header.playerCarIndex;
+    playerCarIndex = 8;
 
-    var subList = list.sublist(25);
-    int i = 0;
-    int listIndex = 0;
+    List<String> n = [];
+    List<ParticipantData> p = List(packet.numActiveCars);
 
-    var participantDataList = [];
-    int byteSize = ParticipantData.participantData.reduce((a, b) => a + b);
-
-    while(i < 22){
-      var p = subList.sublist(listIndex, listIndex + byteSize);
-      listIndex += byteSize ;
-
-      participantDataList.add(ParticipantData(p));
-      i++;
+    for (int i = 0; i < packet.numActiveCars; i++) {
+      p[packetLd.lapData[i].carPosition - 1] = packet.participantData[i];
     }
+
+    int playerPos = packetLd.lapData[playerCarIndex].carPosition - 1;
+
+    List<ParticipantData> lp = List(5);
+
+    if(playerPos < 3){
+      lp[0] = p[0];
+      lp[1] = p[1];
+      lp[2] = p[2];
+      lp[3] = p[3];
+      lp[4] = p[4];
+    } else if(playerPos > packet.numActiveCars - 2){
+      lp[0] = p[packet.numActiveCars-5];
+      lp[1] = p[packet.numActiveCars-4];
+      lp[2] = p[packet.numActiveCars-3];
+      lp[3] = p[packet.numActiveCars-2];
+      lp[4] = p[packet.numActiveCars-1];
+    } else {
+      lp[0] = p[playerPos-2];
+      lp[1] = p[playerPos-1];
+      lp[2] = p[playerPos];
+      lp[3] = p[playerPos+1];
+      lp[4] = p[playerPos+2];
+
+    }
+
+
+    bool cont = true;
+
+    for (int i = 0; i < packet.numActiveCars; i++) {
+      for (int j = 0; j < packet.numActiveCars; j++) {
+        if (packetLd.lapData[j].carPosition == i + 1) {
+
+          // p.add(packet.participantData[j]);
+
+          // if(i < 5) {
+          //   n.add("${i} : ${packet.participantData[j].name}");
+          //   break;
+          // } else {
+          //   cont = false;
+          // }
+          //
+          // if(i >= 19 - 2){
+          //   n.add("${i} : ${packet.participantData[j].name}");
+          //   break;
+          // }
+        }
+      }
+    }
+    //
+
+    print("x");
   });
 }
