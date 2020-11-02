@@ -6,18 +6,17 @@ import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
 import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
-import 'package:app_f1_telemetry/view/draggable.dart';
-import 'package:app_f1_telemetry/widgets/brake.dart';
-import 'package:app_f1_telemetry/widgets/ers_storage.dart';
-import 'package:app_f1_telemetry/widgets/rev_lights.dart';
-import 'package:app_f1_telemetry/widgets/speed.dart';
-import 'package:app_f1_telemetry/widgets/throttle.dart';
-import 'package:app_f1_telemetry/widgets/widget_types.dart';
+import 'package:app_f1_telemetry/view/dashboard.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/brake.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/cm_dashboard_left.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/ers_storage.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/gear.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/rev_lights.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/speed.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/status_table.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/throttle.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/widget_types.dart';
 import 'package:flutter/material.dart';
-
-import 'cm_dashboard_left.dart';
-import 'gear.dart';
-import 'status_table.dart';
 
 class WidgetCreator {
   CarTelemetryData _telemetryData;
@@ -70,7 +69,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -108,7 +107,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -143,7 +142,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -176,7 +175,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -211,7 +210,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -248,7 +247,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -281,7 +280,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,
@@ -314,7 +313,7 @@ class WidgetCreator {
         {
           if (isEditing) {
             return DraggableWidget(
-              widget: PositionedWidget(
+              w: PositionedWidget(
                 id: telemetryWidget.id,
                 start: telemetryWidget.start,
                 top: telemetryWidget.top,

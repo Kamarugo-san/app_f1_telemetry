@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_f1_telemetry/common/constants.dart';
 import 'package:app_f1_telemetry/data_to_string/speed_type.dart';
 import 'package:app_f1_telemetry/packet/header.dart';
 import 'package:app_f1_telemetry/packet/packet_car_status_data.dart';
@@ -7,18 +8,17 @@ import 'package:app_f1_telemetry/packet/packet_car_telemetry_data.dart';
 import 'package:app_f1_telemetry/packet/packet_ids.dart';
 import 'package:app_f1_telemetry/packet/packet_lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
-import 'package:app_f1_telemetry/view/constants.dart';
-import 'package:app_f1_telemetry/widgets/gear.dart';
-import 'package:app_f1_telemetry/widgets/rev_lights.dart';
-import 'package:app_f1_telemetry/widgets/speed.dart';
-import 'package:app_f1_telemetry/widgets/status_table.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/gear.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/rev_lights.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/speed.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/status_table.dart';
+import 'package:app_f1_telemetry/widgets/dashboard_widgets/widget_types.dart';
 import 'package:app_f1_telemetry/widgets/widget_creator.dart';
-import 'package:app_f1_telemetry/widgets/widget_types.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Background extends StatelessWidget {
+class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -28,7 +28,7 @@ class Background extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return MaterialApp(
-      title: 'F1 Telemetry',
+      title: Constants.appName,
       home: DraggableView(),
     );
   }
@@ -330,7 +330,7 @@ class _DraggableViewState extends State<DraggableView> {
                 setState(() {
                   _DraggableViewState.controller
                       .remove(_DraggableViewState.controller.selectedId);
-                  isEditing = true;
+                  isEditing = false;
                 });
               },
             ),
@@ -365,21 +365,24 @@ class _DraggableViewState extends State<DraggableView> {
 }
 
 class DraggableWidget extends StatefulWidget {
-  final PositionedWidget widget;
+  final PositionedWidget w;
 
   final double width;
   final double height;
 
   DraggableWidget(
-      {@required this.widget,
+      {@required this.w,
       this.width = Constants.defaultSize,
       this.height = Constants.defaultSize});
 
   @override
-  _DraggableWidgetState createState() => _DraggableWidgetState(
-        widget.start,
-        widget.top,
-      );
+  _DraggableWidgetState createState() {
+    print("W: ${w.id} | S: ${w.start} | T: ${w.top}");
+    return _DraggableWidgetState(
+      w.start,
+      w.top,
+    );
+  }
 }
 
 class _DraggableWidgetState extends State<DraggableWidget> {
@@ -394,7 +397,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
       s = (MediaQuery.of(context).size.width ~/ 2 - widget.width / 2).toInt();
       t = (MediaQuery.of(context).size.height ~/ 2 - widget.height / 2).toInt();
 
-      _DraggableViewState.controller.updatePosition(widget.widget.id, s, t);
+      _DraggableViewState.controller.updatePosition(widget.w.id, s, t);
     }
 
     return Positioned(
@@ -402,10 +405,10 @@ class _DraggableWidgetState extends State<DraggableWidget> {
       top: t.toDouble(),
       child: GestureDetector(
         child: Draggable(
-          child: widget.widget.widget,
+          child: widget.w.widget,
           feedback: Material(
             type: MaterialType.transparency,
-            child: widget.widget.widget,
+            child: widget.w.widget,
           ),
           childWhenDragging: Container(width: 0, height: 0),
           onDragEnd: (details) {
@@ -413,16 +416,15 @@ class _DraggableWidgetState extends State<DraggableWidget> {
               s = (details.offset.dx / 10).round() * 10;
               t = (details.offset.dy / 10).round() * 10;
 
-              _DraggableViewState.controller
-                  .updatePosition(widget.widget.id, s, t);
-              _DraggableViewState.controller.selectedId = widget.widget.id;
+              _DraggableViewState.controller.updatePosition(widget.w.id, s, t);
+              _DraggableViewState.controller.selectedId = widget.w.id;
             });
           },
         ),
         onTap: () => {
           setState(
             () {
-              _DraggableViewState.controller.selectedId = widget.widget.id;
+              _DraggableViewState.controller.selectedId = widget.w.id;
             },
           ),
         },

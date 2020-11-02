@@ -38,3 +38,7 @@ to see.
 ## Team
 [DouglasSnt](https://github.com/DouglasSnt)
 [Kamarugo-san](https://github.com/Kamarugo-san)
+
+## Disclaimer
+We do not own anything except the code itself. All the rights belong to F1™ and F1® 2020 Game and
+their respective owners.

@@ -1,8 +1,8 @@
-import 'package:app_f1_telemetry/constants/team_colors.dart';
+import 'file:///C:/Users/devma/dev/app_f1_telemetry/lib/common/team_colors.dart';
 import 'package:app_f1_telemetry/packet/car_status_data.dart';
 import 'package:app_f1_telemetry/packet/lap_data.dart';
 import 'package:app_f1_telemetry/packet/packet_participant_data.dart';
-import 'package:app_f1_telemetry/view/constants.dart';
+import 'package:app_f1_telemetry/common/constants.dart';
 import 'package:flutter/material.dart';
 
 class StatusTable extends StatelessWidget {
